@@ -1,45 +1,47 @@
 import * as keyboardTypes from 'src/store/types/keyboard'
-import { mapKeyCodeToNoteIdOctaveId } from 'src/constants/keycodes'
-import { DIESE_SHIFT_ID } from 'src/constants/notes'
+import { keyboardMap, codesMapForOctaves } from 'src/constants/keycodes'
 
 import store from 'src/store'
-
-const SHIFT_KEYCODE = 16
 
 document.addEventListener('keydown', keydown)
 document.addEventListener('keyup', keyup)
 
-let shiftPressed = false
+let activeOctave = 3
 let keyCodesPressed = new Set()
 let keyCodePayload = new Map()
 
 function keydown (e) {
   if (e.target.tagName.toLowerCase() === 'input') return
 
-  let { keyCode } = e
+  let code = e.code
 
-  if (!keyCode) return
+  if (!code) return
 
-  if (keyCode === SHIFT_KEYCODE) {
-    shiftPressed = true
+  if (keyCodesPressed.has(code)) {
     return
   }
 
-  if (keyCodesPressed.has(keyCode)) {
+  if (codesMapForOctaves[code]) {
+    e.preventDefault()
+    e.stopPropagation()
+    activeOctave = codesMapForOctaves[code]
+    console.log(activeOctave)
     return
   }
 
-  keyCodesPressed.add(keyCode)
+  keyCodesPressed.add(code)
 
-  const note = mapKeyCodeToNoteIdOctaveId[keyCode]
+  const note = keyboardMap[code]
+  console.log(code, note)
 
   if (!note) return
 
+  e.preventDefault()
+  e.stopPropagation()
+
   const copyNote = { ...note }
 
-  if (shiftPressed) {
-    copyNote.noteId = copyNote.noteId + DIESE_SHIFT_ID
-  }
+  copyNote.octaveId = note.octaveTranspose + activeOctave
 
   const time = Date.now()
   const payload = {
@@ -48,28 +50,32 @@ function keydown (e) {
     id: 'key-ssesion:' + (Math.random() * time)
   }
 
-  keyCodePayload.set(keyCode, payload)
+  keyCodePayload.set(code, payload)
 
   store.commit(keyboardTypes.KEYDOWN, payload)
 }
 
 function keyup (e) {
-  const keyCode = e.keyCode
+  const code = e.code
 
-  if (!keyCode) return
+  if (!code) return
 
-  if (keyCode === SHIFT_KEYCODE) {
-    shiftPressed = false
+  if (codesMapForOctaves[code]) {
+    e.preventDefault()
+    e.stopPropagation()
     return
   }
 
-  keyCodesPressed.delete(keyCode)
+  keyCodesPressed.delete(code)
 
-  const note = mapKeyCodeToNoteIdOctaveId[keyCode]
+  const note = keyboardMap[code]
 
   if (!note) return
 
-  const payload = keyCodePayload.get(keyCode)
+  e.preventDefault()
+  e.stopPropagation()
+
+  const payload = keyCodePayload.get(code)
 
   if (!payload) return
 
