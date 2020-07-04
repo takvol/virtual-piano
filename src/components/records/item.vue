@@ -158,37 +158,37 @@
         this.$store.commit(typesRecords.REMOVE_RECORD, this.record.uid)
       },
       initPlayer () {
-         return new TrackPlayer({
-           track: [ ...this.record.track ],
-           onPlay: () => {
-             this.timeline.start()
-             this.playing = true
-           },
-           onLoop: () => {
-             this.timeline.start()
-             this.playing = true
-           },
-           onPause: () => {
-             this.timeline.stop()
-             this.playing = false
-           },
-           onStop: () => {
-             this.timeline.stop()
-             this.timeline.goToStart()
-             this.playing = false
-           },
-           onStart: () => {
-             this.playing = true
-             this.timeline.goToStart()
-             this.timeline.start()
-           },
-           onEnd: () => {
-             this.timeline.goToEnd()
-             this.timeline.stop()
-             this.playing = false
-           }
-         })
-       }
+        return new TrackPlayer({
+          track: [ ...this.record.track ],
+          onPlay: () => {
+            this.timeline.start()
+            this.playing = true
+          },
+          onLoop: () => {
+            this.timeline.start()
+            this.playing = true
+          },
+          onPause: () => {
+            this.timeline.stop()
+            this.playing = false
+          },
+          onStop: () => {
+            this.timeline.stop()
+            this.timeline.goToStart()
+            this.playing = false
+          },
+          onStart: () => {
+            this.playing = true
+            this.timeline.goToStart()
+            this.timeline.start()
+          },
+          onEnd: () => {
+            this.timeline.goToEnd()
+            this.timeline.stop()
+            this.playing = false
+          }
+        })
+      }
     }
   }
 </script>

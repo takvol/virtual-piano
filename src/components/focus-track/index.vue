@@ -59,8 +59,6 @@
 </template>
 
 <script>
-  import * as typesRecords from 'src/store/types/records'
-
   import { last } from 'lodash'
   import Timeline from 'src/graphic/simple-timeline'
   import TrackPlayer from 'src/modules/track-player'

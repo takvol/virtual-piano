@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import auth from 'src/modules/auth'
+  // import auth from 'src/modules/auth'
 
   export default {
     name: 'menu',

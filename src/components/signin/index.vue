@@ -43,7 +43,7 @@
             { required: true, trigger: 'blur' }
           ]
         })
-      };
+      }
     },
     methods: {
       goToSignup () {
@@ -68,7 +68,7 @@
           this.$router.push('/')
           this.$message.success('Success sign in.')
         } else {
-          return false;
+          return false
         }
       }
     }

@@ -48,9 +48,9 @@
           ],
           checkPass: [
             { required: true, validator: this.validatePass2, trigger: 'blur' }
-          ],
+          ]
         })
-      };
+      }
     },
     methods: {
       goToSignin () {
@@ -75,7 +75,7 @@
           this.$router.push('/')
           this.$message.success('Success sign up.')
         } else {
-          return false;
+          return false
         }
       },
       validatePass (rule, value, callback) {

@@ -6,9 +6,6 @@
 </template>
 
 <script>
-  import { forEach } from 'lodash'
-  import events from 'src/modules/event-bus'
-
   import PianoBlock from 'src/graphic/piano-block'
 
   export default {
