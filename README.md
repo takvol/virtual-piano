@@ -2,6 +2,9 @@
 
 > A virtual piano develop with vuejs
 
+See for reference:
+https://github.com/AStaroverov/virtual-piano
+
 ## Build Setup
 
 ``` bash
